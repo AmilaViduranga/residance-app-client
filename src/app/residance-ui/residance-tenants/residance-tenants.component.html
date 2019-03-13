@@ -1,0 +1,181 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">assignment</i>
+              </div>
+              <h4 class="card-title">Tenants</h4>
+              <button class="btn btn-primary pull-right"  data-toggle="modal" data-target="#insertModal">
+                Add new Tenant
+              </button>
+            </div>
+              <div class="card-body">
+                <div class="material-datatables">
+                  <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>domain</th>
+                              <th>address</th>
+                              <th>country code</th>
+                              <th>city</th>
+                              <th>postal code</th>
+                              <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="availableTenants.length != 0">
+                            <tr *ngFor="let tenant of availableTenants">
+                              <td>{{tenant.name}}</td>
+                              <td>{{tenant.domain}}</td>
+                              <td>{{tenant.address_line1}}, <br>{{tenant.address_line2}}</td>
+                              <td>{{tenant.country}}</td>
+                              <td>{{tenant.city}}</td>
+                              <td>{{tenant.postal_code}}</td>
+                              <td>
+                                <button mat-raised-button class="btn btn-link" (click)="loadUpdateTenant(tenant)">View More...</button>
+                                <button mat-raised-button class="btn btn-warning" (click)="loadUpdateTenant(tenant)">Update</button>
+                                <button mat-raised-button class="btn btn-danger" (click)="deleteTenant(tenant._id)">Delete</button>
+                              </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- modals -->
+<!-- update tenant -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Tenant</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Tenant Name</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.name" name="update_tenant_name">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Tenant Address Line One</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.address_line1" name="update_tenant_address_1">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Tenant Address Line two</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.address_line2" name="update_tenant_address_2">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Tenant City</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.city" name="update_tenant_city">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Country</label>
+                  <select class="form-control" [(ngModel)]="updateInstance.country" name="update_tenant_country">
+                    <option *ngFor="let country of countries" [value]="country.code">{{country.name}}</option>
+                  </select>
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Domain</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.domain" name="update_tenant_domain">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Latitude</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.latitude" name="update_tenant_latitude">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Longitude</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.longitude" name="update_tenant_longitude">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Postal Code</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.postal_code" name="update_tenant_postal_code">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateTenant()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- new tenant modal -->
+<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Tenant</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Tenant Name</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.name" name="newInstance_name">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Tenant Address Line One</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.address_line1" name="newInstance_address_1">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Tenant Address Line two</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.address_line2" name="newInstance_address_2">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Tenant City</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.city" name="newInstance_city">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Country</label>
+                  <select class="form-control" [(ngModel)]="newInstance.country" name="newInstance_country">
+                    <option *ngFor="let country of countries" [value]="country.code">{{country.name}}</option>
+                  </select>
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Domain</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.domain" name="newInstance_domain">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Latitude</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.latitude" name="newInstance_latitude">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Longitude</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.longitude" name="newInstance_longitude">
+              </div>
+              <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Postal Code</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.postal_code" name="newInstance_postal_code">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="insertTenant()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+  

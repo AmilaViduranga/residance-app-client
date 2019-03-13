@@ -1,0 +1,44 @@
+
+<div class="wrapper wrapper-full-page">
+  <div class="page-header login-page header-filter" filter-color="black" style="background-image: url('./assets/img/card-2.jpg'); background-size: cover; background-position: top center;">
+    <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+          <form class="form" method="" action="">
+            <div class="card card-login card-hidden">
+              <div class="card-header card-header-rose text-center">
+                <h4 class="card-title">Log in</h4>
+              </div>
+              <div class="card-body ">
+                <span class="bmd-form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">face</i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="User Name..." [(ngModel)]="authontication.username" name="userName">
+                  </div>
+                </span>
+                <span class="bmd-form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">lock_outline</i>
+                      </span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password..." [(ngModel)]="authontication.password" name="password">
+                  </div>
+                </span>
+              </div>
+              <div class="card-footer justify-content-center">
+                <a  class="btn btn-rose btn-link btn-lg" (click)="login()">Lets Go</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

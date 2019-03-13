@@ -1,0 +1,188 @@
+<div class="wrapper wrapper-full-page">
+  <div class="page-header register-page header-filter" filter-color="black" style="background-image: url('./assets/img/card-2.jpg'); background-size: cover; background-position: top center;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 ml-auto mr-auto">
+          <div class="card card-signup">
+            <h2 class="card-title text-center">Register</h2>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 mr-auto">
+                  <form class="form" method="" action="">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">face</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="User Name..." [(ngModel)]="newUser.userName" name="user_name">
+                          </div>
+                        </div>
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">face</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="First Name..."  [(ngModel)]="newUser.first_name" name="first_name">
+                          </div>
+                        </div>
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">face</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Last name..." [(ngModel)]="newUser.last_name" name="last_name">
+                          </div>
+                        </div>
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">lock_outline</i>
+                              </span>
+                            </div>
+                            <input type="password" placeholder="Password..." class="form-control" [(ngModel)]="newUser.password" name="password">
+                          </div>
+                        </div>
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">assignment</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Address Line One..." [(ngModel)]="newUser.address_line1" name="address_line1">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">assignment</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Address Line Two..." [(ngModel)]="newUser.address_line2" name="address_line2">
+                          </div>
+                        </div>
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">assignment</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Postal Code..." [(ngModel)]="newUser.postal_code" name="postal_code">
+                          </div>
+                        </div>
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">arrow_right_alt</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="City..." [(ngModel)]="newUser.city" name="city">
+                          </div>
+                        </div>
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">arrow_right_alt</i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="State..." [(ngModel)]="newUser.state" name="state">
+                          </div>
+                        </div>
+                        <div class="form-group has-default">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">arrow_right_alt</i>
+                              </span>
+                            </div>
+                            <select class="form-control" [(ngModel)]="newUser.country" name="country">
+                              <option disabled selected value="CNS">Select Country</option>
+                              <option *ngFor="let country of countries" [value]="country.code">{{country.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="form-group has-default">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">arrow_right_alt</i>
+                                </span>
+                              </div>
+                              <select class="form-control" [(ngModel)]="newUser.roleId" name="role">
+                                <option disabled selected value="0">Select role</option>
+                                <option *ngFor="let role of roles" [value]="role._id">{{role.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group has-default">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">credit_card</i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control" placeholder="NIC..." [(ngModel)]="newUser.nic" name="nic">
+                            </div>
+                          </div>
+                          <div class="form-group has-default">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">settings_cell</i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control" placeholder="Mobile no..." [(ngModel)]="newUser.mobile" name="mobile">
+                            </div>
+                          </div>
+                          <div class="form-group has-default">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">settings_cell</i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control" placeholder="Land phone no..." [(ngModel)]="newUser.telephone" name="telephone">
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <!-- <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="" checked="">
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                        I agree to the
+                        <a href="#something">terms and conditions</a>.
+                      </label>
+                    </div> -->
+                    <div class="text-center">
+                      <a style="color: white;" class="btn btn-primary btn-round mt-4" (click)="register()">Register Now</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

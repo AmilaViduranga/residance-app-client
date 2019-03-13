@@ -1,0 +1,173 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">assignment</i>
+              </div>
+              <h4 class="card-title">Gas Bills</h4>
+              <button class="btn btn-primary pull-right"  data-toggle="modal" data-target="#insertModal">
+                Add new gas bill
+              </button>
+            </div>
+              <div class="card-body">
+                <div class="material-datatables">
+                  <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                              <th>Account Id</th>
+                              <th>Billed Date</th>
+                              <th>Due Date</th>
+                              <th>Amount</th>
+                              <th>Usage</th>
+                              <th>Outstanding</th>
+                              <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="availableGasBill.length != 0">
+                            <tr *ngFor="let gasBill of availableGasBill">
+                              <td>{{gasBill.account_id}}</td>
+                              <td>{{gasBill.bill_date}}</td>
+                              <td>{{gasBill.due_date}}</td>
+                              <td>{{gasBill.amount}}</td>
+                              <td>{{gasBill.usage}}</td>
+                              <td>{{gasBill.outstanding}}</td>
+                              <td>
+                                <button mat-raised-button class="btn btn-link" (click)="loadUpdate(gasBill)">View More ..</button>
+                                <button mat-raised-button class="btn btn-warning" (click)="loadUpdate(gasBill)">Update</button>
+                                <button mat-raised-button class="btn btn-danger" (click)="deleteGasBill(gasBill._id)">Delete</button>
+                              </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+          </div>
+        </div> 
+    </div>
+  </div>
+</div>  
+
+<!-- modals -->
+<!-- insert -->
+<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new Gas Bill</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Account id</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.account_id" name="account_id">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Bill Date</label>
+              <input type="date" class="form-control" id="recipient-name" [(ngModel)]="newInstance.bill_date" name="bill_date">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Due Date</label>
+              <input type="date" class="form-control" id="recipient-name" [(ngModel)]="newInstance.due_date" name="due_date">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Amount</label>
+              <input type="number" class="form-control" id="recipient-name" [(ngModel)]="newInstance.amount" name="amount">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Usage</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.usage" name="usage">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">OutStanding</label>
+              <input type="number" class="form-control" id="recipient-name" [(ngModel)]="newInstance.outstanding" name="outstanding">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Message</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.message" name="message">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Unit</label>
+              <select class="form-control" [(ngModel)]="newInstance.unit_id" name="unit_id">
+                <option *ngFor="let unit of availableUnits" [value]="unit._id">{{unit.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveGasBill()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- update -->
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Gas Bill</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Account id</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.account_id" name="account_id">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Bill Date</label>
+              <input type="date" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.bill_date" name="bill_date">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Due Date</label>
+              <input type="date" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.due_date" name="due_date">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Amount</label>
+              <input type="number" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.amount" name="amount">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Usage</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.usage" name="usage">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">OutStanding</label>
+              <input type="number" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.outstanding" name="outstanding">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Message</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.message" name="message">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Unit</label>
+              <select class="form-control" [(ngModel)]="updateInstance.unit_id" name="unit_id">
+                <option *ngFor="let unit of availableUnits" [value]="unit._id">{{unit.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateGasBill()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

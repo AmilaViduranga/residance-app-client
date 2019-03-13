@@ -1,0 +1,32 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { CalendarModule } from '../calendar/calendar.module';
+import { ResidanceDashboardComponent } from './residance-dashboard/residance-dashboard.component';
+import { ResidanceUserComponent } from './residance-user/residance-user.component';
+import { ResidanceRoleComponent } from './residance-role/residance-role.component';
+import { ResidanceUnitComponent } from './residance-unit/residance-unit.component';
+import { ResidanceTenantsComponent } from './residance-tenants/residance-tenants.component';
+import { ResidanceGasbilComponent } from './residance-gasbil/residance-gasbil.component';
+
+import { ResidanceRoutes } from './residance.routing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [
+    ResidanceDashboardComponent, 
+    ResidanceUserComponent, 
+    ResidanceRoleComponent, 
+    ResidanceUnitComponent, 
+    ResidanceTenantsComponent, 
+    ResidanceGasbilComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(ResidanceRoutes),
+    FormsModule,
+    CalendarModule,
+    ReactiveFormsModule
+  ]
+})
+export class ResidanceUiModule { }
