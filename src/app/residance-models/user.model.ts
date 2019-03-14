@@ -14,4 +14,5 @@ export class User {
     roleId: string = "0";
     userName: string;
     password: string;
+    profile_pic: any = "../../../assets/img/default-avatar.png";
 }

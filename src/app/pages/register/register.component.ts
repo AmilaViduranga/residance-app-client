@@ -54,4 +54,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
         swal("Not Registered!", "You have not registered due to error:- " + err, "warning");
       })
     }
+
+    loadProfile(event) {
+      var file:File = event.target.files[0];
+      var myReader:FileReader = new FileReader();
+      myReader.onloadend = (e) => {
+        this.newUser.profile_pic = myReader.result;
+      }
+      myReader.readAsDataURL(file);
+    }
 }
