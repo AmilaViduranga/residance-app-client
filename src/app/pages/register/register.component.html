@@ -12,16 +12,15 @@
                     <div class="row">
                       <div class="col-sm-4">
                         <div class="form-group has-default">
-                        <div class="input-group">
-                          <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" [src]="newUser.profile_pic" alt="Card image cap">
-                            <div class="card-body">
-                              <button class="btn btn-primary" (click)="profile.click()">upload Profile</button>
-                              <input type="file" #profile (change)="loadProfile($event)">
+                          <div class="input-group">
+                            <div class="card" style="width: 18rem;">
+                              <img class="card-img-top" [src]="newUser.profile_pic" alt="Card image cap" (click)="profile.click()" style="cursor: pointer;">
+                              <div class="card-body">
+                                <input type="file" #profile (change)="loadProfile($event)">
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
                       </div>
                       <div class="col-sm-8">
                         <div class="row">

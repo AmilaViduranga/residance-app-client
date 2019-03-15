@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BasicRestService } from '../../services/basic-rest.service';
 import { environment } from '../../../environments/environment';
 import { GasBill } from '../../residance-models/gasbill.model';
+import { Tenant } from '../../residance-models/tenant.model';
 import { Unit } from '../../residance-models/units.model';
 import swal from 'sweetalert2';
 import { Statics } from 'src/app/services/statics';
@@ -13,8 +14,11 @@ declare var $ :any;
   styleUrls: ['./residance-gasbil.component.css']
 })
 export class ResidanceGasbilComponent implements OnInit {
+  new_uploaded_pay_slip: string = "Upload Pay Slip";
+  update_uploaded_pay_slip: string = "Upload Pay Slip";
   availableGasBill:Array<GasBill> = new Array<GasBill>();
   availableUnits:Array<Unit> = new Array<Unit>();
+  availableTenants: Array<Tenant> = new Array<Tenant>();
   newInstance:GasBill = new GasBill();
   updateInstance:GasBill = new GasBill();
 
@@ -23,6 +27,7 @@ export class ResidanceGasbilComponent implements OnInit {
   ngOnInit() {
     this.getAvailableGasBills();
     this.getAvailableUnits();
+    this.getAvailableTenants();
     this.newInstance.publishedBy = Statics.userId;
   }
 
@@ -42,7 +47,15 @@ export class ResidanceGasbilComponent implements OnInit {
         newGasBill.unit = gasbill.unit_id;
         newGasBill.unit_id = gasbill.unit_id._id;
         newGasBill.usage = gasbill.usage;
-        this.availableGasBill.push(newGasBill);
+        newGasBill.tenant_id = gasbill.tenant_id._id;
+        if(gasbill.pay_slip) {
+          this.service.post(environment.BASESERVICE + environment.GAS_BILL_GET_PAY_SLIP, true, {"path": gasbill.pay_slip}).subscribe(file => {
+            newGasBill.pay_slip = "data:image/png;base64," + file.data;
+            this.availableGasBill.push(newGasBill);
+          })
+        } else {
+          this.availableGasBill.push(newGasBill);
+        }
       })
     }, err => {
       console.log(err);
@@ -56,6 +69,19 @@ export class ResidanceGasbilComponent implements OnInit {
         newUnit._id = unit._id;
         newUnit.name = unit.name;
         this.availableUnits.push(newUnit);
+      }, err => {
+        console.log(err);
+      })
+    })
+  }
+
+  getAvailableTenants() {
+    this.service.get(environment.BASESERVICE + environment.TENANT_GET_ALL, true).subscribe(response => {
+      response.data.forEach(tenant => {
+        let newTenant = new Tenant();
+        newTenant._id = tenant._id;
+        newTenant.name = tenant.name;
+        this.availableTenants.push(newTenant);
       }, err => {
         console.log(err);
       })
@@ -110,6 +136,22 @@ export class ResidanceGasbilComponent implements OnInit {
           })
         }
     })
+  }
+
+  uploadPaySlip(event, instance: GasBill, action: string) {
+    if(action == 'insert') {
+      this.new_uploaded_pay_slip = "Pay Slip Attached"
+    }
+
+    if(action == 'update') {
+      this.update_uploaded_pay_slip = "Pay Slip Attached"
+    }
+    var file:File = event.target.files[0];
+    var myReader:FileReader = new FileReader();
+    myReader.onloadend = (e) => {
+      instance.pay_slip = myReader.result;
+    }
+    myReader.readAsDataURL(file);
   }
 
   private dateSpliter(date) {

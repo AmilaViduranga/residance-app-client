@@ -11,5 +11,7 @@ export class GasBill {
     message: string;
     unit_id: string;
     publishedBy :string;
+    tenant_id: string;
+    pay_slip: any;
     unit: Unit = new Unit();
 }

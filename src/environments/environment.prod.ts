@@ -24,6 +24,7 @@ export const environment = {
   GAS_BILL_GET_ALL: "gasbill/get/all",
   GAS_BILL_GET_BY_QUERY: "gasbill/get/by-query",
   GAS_BILL_DELETE: "gasbill/delete/",
+  GAS_BILL_GET_PAY_SLIP: "gasbill/get/pay_slip",
 
   //tenant routes
   TENANT_CREATE: "tenant/create",

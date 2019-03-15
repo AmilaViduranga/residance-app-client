@@ -63,43 +63,66 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Account id</label>
-              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.account_id" name="account_id">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Bill Date</label>
-              <input type="date" class="form-control" id="recipient-name" [(ngModel)]="newInstance.bill_date" name="bill_date">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Due Date</label>
-              <input type="date" class="form-control" id="recipient-name" [(ngModel)]="newInstance.due_date" name="due_date">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Amount</label>
-              <input type="number" class="form-control" id="recipient-name" [(ngModel)]="newInstance.amount" name="amount">
-            </div>
+          <div class="col-sm-4">
+              <div class="form-group has-default">
+                  <div class="input-group">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" [src]="newInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" style="cursor: pointer;" (click)="payslip.click()">
+                      <div class="card-body">
+                        <button class="btn-primary" (click)="payslip.click()">{{new_uploaded_pay_slip}}</button>
+                        <input type="file" class="form-control" id="recipient-name" (change)="uploadPaySlip($event, newInstance, 'insert')" #payslip>
+                      </div>
+                    </div>
+                  </div>
+              </div>
           </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Usage</label>
-              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.usage" name="usage">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">OutStanding</label>
-              <input type="number" class="form-control" id="recipient-name" [(ngModel)]="newInstance.outstanding" name="outstanding">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Message</label>
-              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.message" name="message">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Unit</label>
-              <select class="form-control" [(ngModel)]="newInstance.unit_id" name="unit_id">
-                <option *ngFor="let unit of availableUnits" [value]="unit._id">{{unit.name}}</option>
-              </select>
-            </div>
+          <div class="col-sm-8">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Account id</label>
+                    <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.account_id" name="account_id">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Tenant</label>
+                    <select class="form-control" [(ngModel)]="newInstance.tenant_id" name="tenant_id">
+                      <option *ngFor="let tenant of availableTenants" [value]="tenant._id">{{tenant.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Bill Date</label>
+                    <input type="date" class="form-control" id="recipient-name" [(ngModel)]="newInstance.bill_date" name="bill_date">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Due Date</label>
+                    <input type="date" class="form-control" id="recipient-name" [(ngModel)]="newInstance.due_date" name="due_date">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Amount</label>
+                    <input type="number" class="form-control" id="recipient-name" [(ngModel)]="newInstance.amount" name="amount">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Usage</label>
+                    <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.usage" name="usage">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">OutStanding</label>
+                    <input type="number" class="form-control" id="recipient-name" [(ngModel)]="newInstance.outstanding" name="outstanding">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Message</label>
+                    <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.message" name="message">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Unit</label>
+                    <select class="form-control" [(ngModel)]="newInstance.unit_id" name="unit_id">
+                      <option *ngFor="let unit of availableUnits" [value]="unit._id">{{unit.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -124,42 +147,65 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Account id</label>
-              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.account_id" name="account_id">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Bill Date</label>
-              <input type="date" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.bill_date" name="bill_date">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Due Date</label>
-              <input type="date" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.due_date" name="due_date">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Amount</label>
-              <input type="number" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.amount" name="amount">
-            </div>
+          <div class="col-sm-4">
+              <div class="form-group has-default">
+                  <div class="input-group">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" [src]="updateInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" (click)="profile.click()" style="cursor: pointer;" (click)="uploadpayslip.click()">
+                      <div class="card-body">
+                        <button class="btn-primary" (click)="uploadpayslip.click()">{{update_uploaded_pay_slip}}</button>
+                        <input type="file" class="form-control" id="recipient-name" (change)="uploadPaySlip($event, updateInstance, 'update')" #uploadpayslip>
+                      </div>
+                    </div>
+                  </div>
+              </div>
           </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Usage</label>
-              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.usage" name="usage">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">OutStanding</label>
-              <input type="number" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.outstanding" name="outstanding">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Message</label>
-              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.message" name="message">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Unit</label>
-              <select class="form-control" [(ngModel)]="updateInstance.unit_id" name="unit_id">
-                <option *ngFor="let unit of availableUnits" [value]="unit._id">{{unit.name}}</option>
-              </select>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Account id</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.account_id" name="account_id">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Tenant</label>
+                  <select class="form-control" [(ngModel)]="updateInstance.tenant_id" name="tenant_id">
+                    <option *ngFor="let tenant of availableTenants" [value]="tenant._id">{{tenant.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Bill Date</label>
+                  <input type="date" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.bill_date" name="bill_date">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Due Date</label>
+                  <input type="date" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.due_date" name="due_date">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Amount</label>
+                  <input type="number" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.amount" name="amount">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Usage</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.usage" name="usage">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">OutStanding</label>
+                  <input type="number" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.outstanding" name="outstanding">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Message</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateInstance.message" name="message">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Unit</label>
+                  <select class="form-control" [(ngModel)]="updateInstance.unit_id" name="unit_id">
+                    <option *ngFor="let unit of availableUnits" [value]="unit._id">{{unit.name}}</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
