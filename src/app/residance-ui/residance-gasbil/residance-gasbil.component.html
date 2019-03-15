@@ -151,7 +151,7 @@
               <div class="form-group has-default">
                   <div class="input-group">
                     <div class="card" style="width: 18rem;">
-                      <img class="card-img-top" [src]="updateInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" (click)="profile.click()" style="cursor: pointer;" (click)="uploadpayslip.click()">
+                      <img class="card-img-top" [src]="updateInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" (click)="uploadpayslip.click()" style="cursor: pointer;" (click)="uploadpayslip.click()">
                       <div class="card-body">
                         <button class="btn-primary" (click)="uploadpayslip.click()">{{update_uploaded_pay_slip}}</button>
                         <input type="file" class="form-control" id="recipient-name" (change)="uploadPaySlip($event, updateInstance, 'update')" #uploadpayslip>
