@@ -11,4 +11,8 @@ export class Menu {
     isUpdate: boolean = false;
     isDelete: boolean = false;
     isView: boolean = false;
+    canEditOthers:boolean = false;
+    canViewOthers:boolean = false;
+    canInsertOthers:boolean = false;
+    canDeleteOthers:boolean = false;
 }

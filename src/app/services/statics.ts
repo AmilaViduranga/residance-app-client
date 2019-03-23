@@ -4,6 +4,13 @@ export class Statics {
     static userType: number;
     static userName: string;
     static userId: string;
+    static menus: any[] = [
+        {"key": "gasbill", "value": "gas bill"},
+        {"key": "tenant", "value": "tenant"},
+        {"key": "role", "value": "role"},
+        {"key": "user", "value": "user"},
+        {"key": "unit", "value": "unit"}
+    ];
     static countries: any[] = [
         {"name": "Select Country", "code": "CNS"},
         {"name": "Afghanistan", "code": "AF"},

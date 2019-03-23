@@ -12,6 +12,8 @@ export interface RouteInfo {
     title: string;
     type: string;
     icontype: string;
+    grants: string[];
+    allow: boolean;
     collapse?: string;
     children?: ChildrenItems[];
 }
@@ -28,32 +30,66 @@ export const ROUTES: RouteInfo[] = [{
         path: '/residance/residance-dashboard',
         title: 'Dashboard',
         type: 'link',
-        icontype: 'dashboard'
+        icontype: 'dashboard',
+        grants:[
+            'super-admin',
+            'admin',
+            'basic-user'
+        ],
+        allow: true
     }, {
         path: '/residance/residance-gassbill',
         title: 'Gas Bill Management',
         type: 'link',
-        icontype: 'games'
+        icontype: 'games',
+        grants:[
+            'super-admin',
+            'admin',
+            'basic-user'
+        ],
+        allow: true
     },{
         path: '/residance/residance-role',
         title: 'Role Management',
         type: 'link',
-        icontype: 'record_voice_over' 
+        icontype: 'record_voice_over',
+        grants:[
+            'super-admin'
+        ],
+        allow: true
     }, {
         path: '/residance/residance-tenant',
         title: 'Tenant Management',
         type: 'link',
-        icontype: 'perm_identity'
+        icontype: 'perm_identity',
+        grants:[
+            'super-admin',
+            'admin',
+            'basic-user'
+        ],
+        allow: true
     },{
         path: '/residance/residance-unit',
         title: 'unit Management',
         type: 'link',
-        icontype: 'assessment'
+        icontype: 'assessment',
+        grants:[
+            'super-admin',
+            'admin',
+            'basic-user'
+        ],
+        allow: true
     }, {
         path: '/residance/residance-user',
         title: 'User Management',
         type: 'link',
-        icontype: 'supervised_user_circle'
+        icontype: 'supervised_user_circle',
+        grants:[
+            'super-admin',
+            'admin',
+            'basic-user'
+        ],
+        allow: true
     }
 
 ];
@@ -93,6 +129,10 @@ export class SidebarComponent implements OnInit {
             bool = true;
         }
         return bool;
+    }
+
+    authUserMenus() {
+        return true;
     }
 
     logout() {

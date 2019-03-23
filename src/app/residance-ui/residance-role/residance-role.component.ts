@@ -3,6 +3,7 @@ import { BasicRestService } from '../../services/basic-rest.service';
 import { environment } from '../../../environments/environment';
 import { Role } from '../../residance-models/role.model';
 import { Menu } from '../../residance-models/role.model';
+import { Statics } from '../../services/statics';
 import swal from 'sweetalert2';
 declare var $ :any;
 
@@ -17,6 +18,7 @@ export class ResidanceRoleComponent implements OnInit {
   availableRoles:Array<Role> = new Array<Role>();
   newRoleInstance: Role = new Role();
   updateRoleInstance:Role = new Role();
+  menuList: any[] = Statics.menus;
 
   constructor(private service: BasicRestService) { 
     
@@ -43,11 +45,20 @@ export class ResidanceRoleComponent implements OnInit {
   }
 
   addMenus(role: Role, menuField:string) {
-    if(menuField != "") {
+    if(menuField != "" && this.checkMenuIsThere(role, menuField)) {
       let newMenu = new Menu();
       newMenu.name = menuField; 
       role.menus.push(newMenu);
     }
+  }
+
+  private checkMenuIsThere(role: Role, menuField:string) {
+    for(let i=0; i<role.menus.length; i++) {
+      if(role.menus[i].name == menuField) {
+        return false;
+      }
+    }
+    return true;
   }
 
   removeMenus(role: Role, index: number) {
@@ -58,6 +69,7 @@ export class ResidanceRoleComponent implements OnInit {
     this.service.post(environment.BASESERVICE + environment.ROLE_CREATE, true, this.newRoleInstance).subscribe(response => {
       if(response.status == 200) {
         swal("Created Successfully", "your role has created", "success");
+        this.newMenu = "not-selected";
         this.getRoles();
       }
     }, err => {
@@ -75,6 +87,7 @@ export class ResidanceRoleComponent implements OnInit {
     this.service.put(environment.BASESERVICE + environment.ROLE_UPDATE + this.updateRoleInstance._id, true, this.updateRoleInstance).subscribe(response => {
       if(response.status == 200) {
         swal("Updated role", "your role has updated", "success");
+        this.updateMenu = "not-selected";
         this.getRoles();
       }
     }, err => {
@@ -110,5 +123,9 @@ export class ResidanceRoleComponent implements OnInit {
     roleInstance.menus[index].isInsert = event.target.checked;
     roleInstance.menus[index].isUpdate = event.target.checked;
     roleInstance.menus[index].isView = event.target.checked;
+    roleInstance.menus[index].canEditOthers = event.target.checked;
+    roleInstance.menus[index].canViewOthers = event.target.checked;
+    roleInstance.menus[index].canInsertOthers = event.target.checked;
+    roleInstance.menus[index].canDeleteOthers = event.target.checked;
   }
 } 

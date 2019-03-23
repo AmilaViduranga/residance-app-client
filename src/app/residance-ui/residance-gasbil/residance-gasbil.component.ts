@@ -6,6 +6,7 @@ import { Tenant } from '../../residance-models/tenant.model';
 import { Unit } from '../../residance-models/units.model';
 import swal from 'sweetalert2';
 import { Statics } from 'src/app/services/statics';
+import { BasicAuthService } from '../../services/basic-auth.service';
 declare var $ :any;
 
 @Component({
@@ -22,7 +23,7 @@ export class ResidanceGasbilComponent implements OnInit {
   newInstance:GasBill = new GasBill();
   updateInstance:GasBill = new GasBill();
 
-  constructor(private service: BasicRestService) { }
+  constructor(private service: BasicRestService, private authService: BasicAuthService) { }
 
   ngOnInit() {
     this.getAvailableGasBills();
@@ -89,6 +90,7 @@ export class ResidanceGasbilComponent implements OnInit {
   }
 
   saveGasBill() {
+    this.newInstance.publishedBy = this.authService.getUserId();;
     this.service.post(environment.BASESERVICE + environment.GAS_BILL_CREATE, true, this.newInstance).subscribe(response => {
       if(response.status == 200) {
         swal("Created Successfully", "your gass bill has created", "success");
