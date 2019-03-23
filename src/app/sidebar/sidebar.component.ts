@@ -107,6 +107,7 @@ export class SidebarComponent implements OnInit {
           }).then(isConfirmed => {
               if(isConfirmed.value != undefined && isConfirmed.value == true) {
                   Statics.token = "";
+                  sessionStorage.clear();
                   Statics.userName = "";
                   this.route.navigateByUrl('/pages/login');
               }

@@ -50,6 +50,7 @@ export class ResidanceRoleComponent implements OnInit {
   }
 
   saveRole() {
+
     this.service.post(environment.BASESERVICE + environment.ROLE_CREATE, true, this.newRoleInstance).subscribe(response => {
       if(response.status == 200) {
         swal("Created Successfully", "your role has created", "success");
@@ -59,6 +60,7 @@ export class ResidanceRoleComponent implements OnInit {
       swal("Error", "your role has not created", "warning");
     })
   }
+
 
   loadUpdateRole(updatableRole: Role) {
     this.updateMenu = "";
@@ -100,4 +102,8 @@ export class ResidanceRoleComponent implements OnInit {
     })
   }
 
-}
+  selectAllCrud(){
+    alert("efef")
+  }
+
+} 

@@ -69,6 +69,7 @@
           <ul>
             <li *ngFor="let menu of newRoleInstance.menus; let i = index"> 
               {{menu}}
+              <label class="checkbox-inline"><input type="checkbox" value="" data-md-icheck (click)="selectAllCrud">All</label>
               <label class="checkbox-inline"><input type="checkbox" value="">Create</label>
               <label class="checkbox-inline"><input type="checkbox" value="">Update</label>
               <label class="checkbox-inline"><input type="checkbox" value="">Delete</label>

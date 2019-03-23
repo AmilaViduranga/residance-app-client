@@ -52,6 +52,7 @@ export class ResidanceTenantsComponent implements OnInit {
   }
 
   loadUpdateTenant(tenant: Tenant) {
+    debugger
     this.updateInstance = tenant;
     $('#updateModal').modal("show");
   }

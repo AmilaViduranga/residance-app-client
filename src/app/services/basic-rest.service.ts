@@ -15,7 +15,7 @@ export class BasicRestService {
     if(isAuthorizedRequest) {
       return this.http.get(path, {
         headers: {
-          "Authorization": Statics.token
+          "Authorization": Statics.token || sessionStorage.getItem("token")
         }
       })
     } else {
@@ -27,7 +27,7 @@ export class BasicRestService {
     if(isAuthorizedRequest) {
       return this.http.post(path, data, {
         headers: {
-          "Authorization": Statics.token
+          "Authorization": Statics.token || sessionStorage.getItem("token")
         }
       }) 
     } else {
@@ -39,7 +39,7 @@ export class BasicRestService {
     if(isAuthorizedRequest) {
       return this.http.put(path, data, {
         headers: {
-          "Authorization": Statics.token
+          "Authorization": Statics.token || sessionStorage.getItem("token")
         }
       }) 
     } else {
@@ -51,7 +51,7 @@ export class BasicRestService {
     if(isAuthorizedRequest) {
       return this.http.delete(path, {
         headers: {
-          "Authorization": Statics.token
+          "Authorization": Statics.token || sessionStorage.getItem("token")
         }
       })
     } else {
