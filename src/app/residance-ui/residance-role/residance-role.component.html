@@ -28,7 +28,7 @@
                               <td>{{role.name}}</td>
                               <td>
                                 <ul>
-                                  <li *ngFor="let menu of role.menus">{{menu}}</li>
+                                  <li *ngFor="let menu of role.menus">{{menu.name}}</li>
                                 </ul>
                               </td>
                               <td>
@@ -68,12 +68,12 @@
           <input type="text" class="form-control" [(ngModel)]="newMenu" name="menu">
           <ul>
             <li *ngFor="let menu of newRoleInstance.menus; let i = index"> 
-              {{menu}}
-              <label class="checkbox-inline"><input type="checkbox" value="" data-md-icheck (click)="selectAllCrud">All</label>
-              <label class="checkbox-inline"><input type="checkbox" value="">Create</label>
-              <label class="checkbox-inline"><input type="checkbox" value="">Update</label>
-              <label class="checkbox-inline"><input type="checkbox" value="">Delete</label>
-              <label class="checkbox-inline"><input type="checkbox" value="">View</label>
+              {{menu.name}}
+              <label class="checkbox-inline"><input type="checkbox" value="" (change)="selectAllCrud(newRoleInstance, $event)">All</label>
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isInsert" (change)="selectCRUD(newRoleInstance, 'insert', $event)">Create</label>
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isUpdate" (change)="selectCRUD(newRoleInstance, 'update', $event)">Update</label>
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isDelete" (change)="selectCRUD(newRoleInstance, 'delete', $event)">Delete</label>
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isView" (change)="selectCRUD(newRoleInstance, 'view', $event)">View</label>
               <button class="btn-danger pull-right" (click)="removeMenus(newRoleInstance, i)">-</button>
               <br/><br/>
             </li>

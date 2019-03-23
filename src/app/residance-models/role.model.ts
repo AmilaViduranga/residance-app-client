@@ -1,6 +1,14 @@
 export class Role {
     _id: string;
-    menus: Array<string> = new Array<string>();
+    menus: Array<Menu> = new Array<Menu>();
     name: string;
-    crud: Map<String, boolean>;
+    crud: Map<string, boolean>;
+}
+
+class Menu {
+    name: string;
+    isInsert: boolean = false;
+    isUpdate: boolean = false;
+    isDelete: boolean = false;
+    isView: boolean = false;
 }

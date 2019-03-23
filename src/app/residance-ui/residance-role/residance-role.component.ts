@@ -16,8 +16,9 @@ export class ResidanceRoleComponent implements OnInit {
   availableRoles:Array<Role> = new Array<Role>();
   newRoleInstance: Role = new Role();
   updateRoleInstance:Role = new Role();
+
   constructor(private service: BasicRestService) { 
-    this.newRoleInstance.name = "test";
+    
   }
 
   ngOnInit() {
@@ -50,7 +51,6 @@ export class ResidanceRoleComponent implements OnInit {
   }
 
   saveRole() {
-
     this.service.post(environment.BASESERVICE + environment.ROLE_CREATE, true, this.newRoleInstance).subscribe(response => {
       if(response.status == 200) {
         swal("Created Successfully", "your role has created", "success");
@@ -60,7 +60,6 @@ export class ResidanceRoleComponent implements OnInit {
       swal("Error", "your role has not created", "warning");
     })
   }
-
 
   loadUpdateRole(updatableRole: Role) {
     this.updateMenu = "";
@@ -102,8 +101,14 @@ export class ResidanceRoleComponent implements OnInit {
     })
   }
 
-  selectAllCrud(){
-    alert("efef")
+  selectAllCrud(roleInstance: Role,  event: any){
+    this.selectCRUD(roleInstance, "insert", event);
+    this.selectCRUD(roleInstance, "update", event);
+    this.selectCRUD(roleInstance, "delete", event);
+    this.selectCRUD(roleInstance, "view", event);
   }
 
+  selectCRUD(roleInstance: Role, action: string, event: any) {
+    roleInstance.crud.set(action, event.target.checked);
+  }
 } 
