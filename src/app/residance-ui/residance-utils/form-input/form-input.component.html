@@ -1,0 +1,4 @@
+<div class="form-group">
+  <label [for]="id" class="col-form-label">{{labelValue}}</label>
+  <input [type]="type" class="form-control" [id]="id" [(ngModel)]="model" [name]="name" (change)="isModelDirty()">
+</div>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ResidanceUtilsModule } from './residance-utils/residance-utils.module';
 import { CalendarModule } from '../calendar/calendar.module';
 import { ResidanceDashboardComponent } from './residance-dashboard/residance-dashboard.component';
 import { ResidanceUserComponent } from './residance-user/residance-user.component';
@@ -23,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    ResidanceUtilsModule,
     RouterModule.forChild(ResidanceRoutes),
     FormsModule,
     CalendarModule,

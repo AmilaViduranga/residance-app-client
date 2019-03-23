@@ -69,6 +69,10 @@
           <ul>
             <li *ngFor="let menu of newRoleInstance.menus; let i = index"> 
               {{menu}}
+              <label class="checkbox-inline"><input type="checkbox" value="">Create</label>
+              <label class="checkbox-inline"><input type="checkbox" value="">Update</label>
+              <label class="checkbox-inline"><input type="checkbox" value="">Delete</label>
+              <label class="checkbox-inline"><input type="checkbox" value="">View</label>
               <button class="btn-danger pull-right" (click)="removeMenus(newRoleInstance, i)">-</button>
               <br/><br/>
             </li>
