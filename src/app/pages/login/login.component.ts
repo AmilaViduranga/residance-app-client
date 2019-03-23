@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 Statics.token = "Bearer " + data.data.token;
                 sessionStorage.setItem("token", Statics.token);
                 Statics.userName = data.data.user_name;
+                sessionStorage.setItem("userName", Statics.userName);
                 Statics.userId = data.data._id;
                 this.router.navigateByUrl('/residance/residance-dashboard');
             }

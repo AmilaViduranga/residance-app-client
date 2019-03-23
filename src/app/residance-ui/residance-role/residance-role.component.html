@@ -68,12 +68,12 @@
           <input type="text" class="form-control" [(ngModel)]="newMenu" name="menu">
           <ul>
             <li *ngFor="let menu of newRoleInstance.menus; let i = index"> 
-              {{menu.name}}
-              <label class="checkbox-inline"><input type="checkbox" value="" (change)="selectAllCrud(newRoleInstance, $event)">All</label>
-              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isInsert" (change)="selectCRUD(newRoleInstance, 'insert', $event)">Create</label>
-              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isUpdate" (change)="selectCRUD(newRoleInstance, 'update', $event)">Update</label>
-              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isDelete" (change)="selectCRUD(newRoleInstance, 'delete', $event)">Delete</label>
-              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isView" (change)="selectCRUD(newRoleInstance, 'view', $event)">View</label>
+              {{menu.name}}&nbsp;&nbsp;
+              <label class="checkbox-inline"><input type="checkbox" value="" (change)="selectAllCrud(newRoleInstance,i, $event)">All</label> &nbsp;
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isInsert">Create</label> &nbsp; &nbsp;
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isUpdate">Update</label> &nbsp; &nbsp;
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isDelete">Delete</label> &nbsp; &nbsp;
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isView">View</label> &nbsp; &nbsp;
               <button class="btn-danger pull-right" (click)="removeMenus(newRoleInstance, i)">-</button>
               <br/><br/>
             </li>
@@ -109,7 +109,12 @@
           <input type="text" class="form-control" [(ngModel)]="updateMenu" name="update_menu">
           <ul>
             <li *ngFor="let menu of updateRoleInstance.menus; let i = index"> 
-              {{menu}}
+              {{menu.name}} &nbsp;&nbsp;
+              <label class="checkbox-inline"><input type="checkbox" value="" (change)="selectAllCrud(updateRoleInstance, i, $event)">All</label> &nbsp;&nbsp;
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isInsert">Create</label> &nbsp;&nbsp;
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isUpdate">Update</label>&nbsp;&nbsp;
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isDelete">Delete</label>&nbsp;&nbsp;
+              <label class="checkbox-inline"><input type="checkbox" [(ngModel)]="menu.isView">View</label>&nbsp;&nbsp;
               <button class="btn-danger pull-right" (click)="removeMenus(updateRoleInstance, i)">-</button>
               <br/><br/>
             </li>

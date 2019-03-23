@@ -79,7 +79,7 @@ export class SidebarComponent implements OnInit {
 
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
-        this.userName = Statics.userName;
+        this.userName = Statics.userName || sessionStorage.getItem("userName");
     }
     updatePS(): void  {
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {

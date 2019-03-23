@@ -5,7 +5,7 @@ export class Role {
     crud: Map<string, boolean>;
 }
 
-class Menu {
+export class Menu {
     name: string;
     isInsert: boolean = false;
     isUpdate: boolean = false;

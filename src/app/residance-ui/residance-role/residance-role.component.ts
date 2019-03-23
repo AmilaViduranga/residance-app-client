@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BasicRestService } from '../../services/basic-rest.service';
 import { environment } from '../../../environments/environment';
 import { Role } from '../../residance-models/role.model';
+import { Menu } from '../../residance-models/role.model';
 import swal from 'sweetalert2';
 declare var $ :any;
 
@@ -35,6 +36,7 @@ export class ResidanceRoleComponent implements OnInit {
         newRole.name = role.name;
         this.availableRoles.push(newRole);
       })
+      console.log(this.availableRoles);
     }, err => {
       console.log(err);
     })
@@ -42,7 +44,9 @@ export class ResidanceRoleComponent implements OnInit {
 
   addMenus(role: Role, menuField:string) {
     if(menuField != "") {
-      role.menus.push(menuField);
+      let newMenu = new Menu();
+      newMenu.name = menuField; 
+      role.menus.push(newMenu);
     }
   }
 
@@ -101,14 +105,10 @@ export class ResidanceRoleComponent implements OnInit {
     })
   }
 
-  selectAllCrud(roleInstance: Role,  event: any){
-    this.selectCRUD(roleInstance, "insert", event);
-    this.selectCRUD(roleInstance, "update", event);
-    this.selectCRUD(roleInstance, "delete", event);
-    this.selectCRUD(roleInstance, "view", event);
-  }
-
-  selectCRUD(roleInstance: Role, action: string, event: any) {
-    roleInstance.crud.set(action, event.target.checked);
+  selectAllCrud(roleInstance: Role,  index:number, event: any){
+    roleInstance.menus[index].isDelete = event.target.checked;
+    roleInstance.menus[index].isInsert = event.target.checked;
+    roleInstance.menus[index].isUpdate = event.target.checked;
+    roleInstance.menus[index].isView = event.target.checked;
   }
 } 
