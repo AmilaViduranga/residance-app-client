@@ -5,6 +5,7 @@ import { FormDropdownComponent } from './form-dropdown/form-dropdown.component';
 import { FormTableComponent } from './form-table/form-table.component';
 import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
 import { FormFileComponent } from './form-file/form-file.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { FormFileComponent } from './form-file/form-file.component';
     FormFileComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     FormInputComponent, 
