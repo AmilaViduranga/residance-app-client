@@ -74,10 +74,10 @@
               <div class="form-group has-default">
                   <div class="input-group">
                     <div class="card" style="width: 18rem;">
-                      <img class="card-img-top" [src]="newInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" style="cursor: pointer;" (click)="payslip.click()">
+                      <img class="card-img-top" [src]="'../../../assets/img/default-avatar.png'" alt="Card image cap" style="cursor: pointer;" (click)="payslip.click()">
                       <div class="card-body">
-                        <button class="btn-primary" (click)="payslip.click()">{{new_uploaded_pay_slip}}</button>
-                        <input type="file" class="form-control" id="recipient-name" (change)="uploadPaySlip($event, newInstance, 'insert')" #payslip>
+                        <button class="btn-primary" (click)="uploadSelected()"> </button>
+                        <input type="file" class="form-control" id="recipient-name" (change)="uploadProfilePic($event, newInstance, 'insert')" #payslip>
                       </div>
                     </div>
                   </div>
@@ -86,30 +86,21 @@
           <div class="col-sm-8">
               <div class="row">
                 <div class="col-sm-6">
-                  <!-- <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">User_Id</label>
-                    <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.account_id" name="account_id">
-                  </div> -->
-                  <!-- <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Tenant</label>
-                    <select class="form-control" [(ngModel)]="newInstance.tenant_id" name="tenant_id">
-                      <option *ngFor="let tenant of availableTenants" [value]="tenant._id">{{tenant.name}}</option>
-                    </select>
-                  </div> -->
                   <div class="form-group">
                     <label for="recipient-name" class="col-form-label">First Name</label>
-                    <input type="date" class="form-control" id="first_name" [(ngModel)]="newInstance.first_name" name="first_name">
+                    <input type="text" class="form-control" id="first_name" [(ngModel)]="newInstance.first_name" name="first_name">
                   </div>
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">last Name</label>
-                    <input type="date" class="form-control" id="last_name" [(ngModel)]="newInstance.last_name" name="last_name">
-                  </div>
+                 
                   <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Address 1</label>
-                    <input type="number" class="form-control" id="address_line1" [(ngModel)]="newInstance.address_line1" name="address_line1">
+                    <input type="text" class="form-control" id="address_line1" [(ngModel)]="newInstance.address_line1" name="address_line1">
                   </div>
                 </div>
                 <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">last Name</label>
+                        <input type="text" class="form-control" id="last_name" [(ngModel)]="newInstance.last_name" name="last_name">
+                      </div>
                   <div class="form-group">
                     <label for="recipient-name" class="col-form-label">NIC No</label>
                     <input type="text" class="form-control" id="nic" [(ngModel)]="newInstance.nic" name="nic">
@@ -124,7 +115,7 @@
                   </div>
                   <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Password</label>
-                    <input type="text" class="form-control" id="Password" [(ngModel)]="newInstance.password" name="UserName">
+                    <input type="password" class="form-control" id="Password" [(ngModel)]="newInstance.password" name="UserName">
                   </div>
                   <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Roles</label>

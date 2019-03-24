@@ -91,5 +91,12 @@ err=>{
 }
 
 
+uploadSelected(){
+
+}
+uploadProfilePic(a,b,c){
+
+}
+
  }
 
