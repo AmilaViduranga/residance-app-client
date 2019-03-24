@@ -11,6 +11,7 @@ import { ResidanceTenantsComponent } from './residance-tenants/residance-tenants
 import { ResidanceGasbilComponent } from './residance-gasbil/residance-gasbil.component';
 import {ValidationService} from '../services/validation.service';
 import { ResidanceRoutes } from './residance.routing';
+import { BasicAuthService } from '../services/basic-auth.service'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   providers:[
-    ValidationService
+    ValidationService,
+    BasicAuthService
   ]
 })
 export class ResidanceUiModule { }
