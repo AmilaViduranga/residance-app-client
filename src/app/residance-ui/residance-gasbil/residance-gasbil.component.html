@@ -67,7 +67,7 @@
               <div class="form-group has-default">
                   <div class="input-group">
                     <div class="card" style="width: 18rem;">
-                      <img class="card-img-top" [src]="newInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" style="cursor: pointer;" (click)="payslip.click()">
+                      <img class="card-img-top" [src]="newInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" style="cursor: pointer;" (click)="enlargeImage(newInstance)">
                       <div class="card-body">
                         <button class="btn-primary" (click)="payslip.click()">{{new_uploaded_pay_slip}}</button>
                         <input type="file" class="form-control" id="recipient-name" (change)="uploadPaySlip($event, newInstance, 'insert')" #payslip>
@@ -128,7 +128,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="saveGasBill()">Save</button>
+        <button *ngIf="menu.isInsert" type="button" class="btn btn-primary" (click)="saveGasBill()">Save</button>
       </div>
     </div>
   </div>
@@ -151,7 +151,7 @@
               <div class="form-group has-default">
                   <div class="input-group">
                     <div class="card" style="width: 18rem;">
-                      <img class="card-img-top" [src]="updateInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" (click)="uploadpayslip.click()" style="cursor: pointer;" (click)="uploadpayslip.click()">
+                      <img class="card-img-top" [src]="updateInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" style="cursor: pointer;" (click)="enlargeImage(updateInstance)">
                       <div class="card-body">
                         <button class="btn-primary" (click)="uploadpayslip.click()">{{update_uploaded_pay_slip}}</button>
                         <input type="file" class="form-control" id="recipient-name" (change)="uploadPaySlip($event, updateInstance, 'update')" #uploadpayslip>
@@ -212,8 +212,27 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="updateGasBill()">Save</button>
+        <button *ngIf="menu.isUpdate" type="button" class="btn btn-primary" (click)="updateGasBill()">Save</button>
       </div>
     </div>
   </div>
+</div>
+
+<!-- image magnifier -->
+<div class="modal fade" id="viewGassbillModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Gas bill Magnifier</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img class="card-img-top" [src]="magnify_payslip" alt="Card image cap" style="width: 100%; height: 100%;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
 </div>

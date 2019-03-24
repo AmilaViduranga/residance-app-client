@@ -24,6 +24,7 @@ export class ResidanceGasbilComponent implements OnInit {
   newInstance:GasBill = new GasBill();
   updateInstance:GasBill = new GasBill();
   menu:Menu = new Menu();
+  magnify_payslip:string = "../../../assets/img/default-avatar.png";
 
   constructor(private service: BasicRestService, private authService: BasicAuthService) { }
 
@@ -193,6 +194,11 @@ export class ResidanceGasbilComponent implements OnInit {
           })
         }
     })
+  }
+
+  enlargeImage(instance: GasBill) {
+    this.magnify_payslip = instance.pay_slip;
+    $("#viewGassbillModal").modal("show");
   }
 
   uploadPaySlip(event, instance: GasBill, action: string) {
