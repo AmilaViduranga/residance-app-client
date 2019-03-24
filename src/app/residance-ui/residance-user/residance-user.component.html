@@ -1,7 +1,146 @@
 <div class="main-content">
     <div class="container-fluid">
       <div class="row">
-  
+
+        
+        <!-- <input type="text" class="form-control" id="val"[(ngModel)]="val1"name="test"/>
+        <!-- <input type="text" class="form-control" id="val2" [(ngModel)]="val2" name="test2"/> -->
+        <!-- <button type="button" class="btn btn-primary" (click)="testvalidation(val1)">Save</button> -->
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">assignment</i>
+              </div>
+              <h4 class="card-title">User Management</h4>
+              <button class="btn btn-primary pull-right"  data-toggle="modal" data-target="#insertModal">
+                Add new User
+              </button>
+            </div>
+              
+            <div class="card-body">
+                <div class="material-datatables">
+                  <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                              <th>First Name</th>
+                              <th>Nic</th>
+                              <th>Address</th>
+                              <th>Country</th>
+                              <th>City</th>
+                              <th>Mobile</th>
+                             
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="availableuser.length != 0">
+                            <tr *ngFor="let user of availableuser">
+                              <td>{{user.first_name}}</td>
+                              <td>{{user.nic}}</td>
+                              <td>{{user.address_line1}}</td>
+                              <td>{{user.country}}</td>
+                              <td>{{user.city}}</td>
+                              <td>{{user.mobile}}</td>
+                              <td>
+                                <button mat-raised-button class="btn btn-link" (click)="loadUpdate(user)">View More ..</button>
+                                <button mat-raised-button class="btn btn-warning" (click)="loadUpdate(user)">Update</button>
+                                <button mat-raised-button class="btn btn-danger" (click)="deleteuser(user._id)">Delete</button>
+                              </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+          </div>
+        </div> 
       </div>
     </div>
   </div>  
+
+
+<!--Model -->
+  <!-- insert -->
+<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-4">
+              <div class="form-group has-default">
+                  <div class="input-group">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" [src]="newInstance.pay_slip || '../../../assets/img/default-avatar.png'" alt="Card image cap" style="cursor: pointer;" (click)="payslip.click()">
+                      <div class="card-body">
+                        <button class="btn-primary" (click)="payslip.click()">{{new_uploaded_pay_slip}}</button>
+                        <input type="file" class="form-control" id="recipient-name" (change)="uploadPaySlip($event, newInstance, 'insert')" #payslip>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-8">
+              <div class="row">
+                <div class="col-sm-6">
+                  <!-- <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">User_Id</label>
+                    <input type="text" class="form-control" id="recipient-name" [(ngModel)]="newInstance.account_id" name="account_id">
+                  </div> -->
+                  <!-- <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Tenant</label>
+                    <select class="form-control" [(ngModel)]="newInstance.tenant_id" name="tenant_id">
+                      <option *ngFor="let tenant of availableTenants" [value]="tenant._id">{{tenant.name}}</option>
+                    </select>
+                  </div> -->
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">First Name</label>
+                    <input type="date" class="form-control" id="first_name" [(ngModel)]="newInstance.first_name" name="first_name">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">last Name</label>
+                    <input type="date" class="form-control" id="last_name" [(ngModel)]="newInstance.last_name" name="last_name">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Address 1</label>
+                    <input type="number" class="form-control" id="address_line1" [(ngModel)]="newInstance.address_line1" name="address_line1">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">NIC No</label>
+                    <input type="text" class="form-control" id="nic" [(ngModel)]="newInstance.nic" name="nic">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Postal Code</label>
+                    <input type="number" class="form-control" id="Psotal_code" [(ngModel)]="newInstance.postal_code" name="psotal_code">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">User Name</label>
+                    <input type="text" class="form-control" id="Username" [(ngModel)]="newInstance.userName" name="UserName">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Password</label>
+                    <input type="text" class="form-control" id="Password" [(ngModel)]="newInstance.password" name="UserName">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Roles</label>
+                    <select class="form-control" [(ngModel)]="newInstance.roleId" name="unit_id">
+                      <option *ngFor="let role of availableRoles" [value]="role._id">{{role.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveUser()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

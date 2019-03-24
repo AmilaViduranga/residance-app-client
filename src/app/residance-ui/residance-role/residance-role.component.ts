@@ -138,3 +138,4 @@ export class ResidanceRoleComponent implements OnInit {
     roleInstance.menus[index].canDeleteOthers = event.target.checked;
   }
 } 
+ 
