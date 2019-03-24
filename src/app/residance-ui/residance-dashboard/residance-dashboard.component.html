@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="card" style="width: 18rem;">
+      <div *ngIf="isTenantAllow" class="card" style="width: 18rem;">
         <img class="card-img-top" src="../../../assets/img/tenant.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title"><b>Tenant Management</b></h4>
@@ -9,7 +9,7 @@
           <a routerLink="/residance/residance-tenant" class="btn btn-primary">Go to tenant management</a>
         </div>
       </div> &nbsp; &nbsp;
-      <div class="card" style="width: 18rem;">
+      <div *ngIf="isUserAllow" class="card" style="width: 18rem;">
         <img class="card-img-top" src="../../../assets/img/users.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title"><b>User Management</b></h4>
@@ -17,7 +17,7 @@
           <a routerLink="/residance/residance-user" class="btn btn-primary">Go to user management</a>
         </div>
       </div>&nbsp; &nbsp;
-      <div class="card" style="width: 18rem;">
+      <div *ngIf="isGasBillAllow" class="card" style="width: 18rem;">
         <img class="card-img-top" src="../../../assets/img/gas-fumes.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title"><b>Gas Management</b></h4>
@@ -25,7 +25,7 @@
           <a routerLink="/residance/residance-gassbill" class="btn btn-primary">Go to gas bill management</a>
         </div>
       </div>&nbsp; &nbsp;
-      <div class="card" style="width: 18rem;">
+      <div *ngIf="isRoleAllow" class="card" style="width: 18rem;">
         <img class="card-img-top" src="../../../assets/img/role.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title"><b>Role Management</b></h4>
@@ -33,7 +33,7 @@
           <a routerLink="/residance/residance-role" class="btn btn-primary">Go to role management</a>
         </div>
       </div>&nbsp; &nbsp;
-      <div class="card" style="width: 18rem;">
+      <div *ngIf="isUnitAllow" class="card" style="width: 18rem;">
         <img class="card-img-top" src="../../../assets/img/unit.png" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title"><b>Unit Management</b></h4>

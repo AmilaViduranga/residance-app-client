@@ -19,9 +19,14 @@ export class ResidanceRoleComponent implements OnInit {
   newRoleInstance: Role = new Role();
   updateRoleInstance:Role = new Role();
   menuList: any[] = Statics.menus;
+  nameDissabled:any = false;
+
+  SUPER_ADMIN:string = Statics.SUPER_ADMIN;
+  ADMIN:string = Statics.ADMIN;
+  BASIC_USER:string = Statics.BASIC_USER;
 
   constructor(private service: BasicRestService) { 
-    
+    console.log(this.SUPER_ADMIN);
   }
 
   ngOnInit() {
@@ -37,8 +42,7 @@ export class ResidanceRoleComponent implements OnInit {
         newRole.menus = role.menus;
         newRole.name = role.name;
         this.availableRoles.push(newRole);
-      })
-      console.log(this.availableRoles);
+      });
     }, err => {
       console.log(err);
     })
@@ -80,6 +84,11 @@ export class ResidanceRoleComponent implements OnInit {
   loadUpdateRole(updatableRole: Role) {
     this.updateMenu = "";
     this.updateRoleInstance = updatableRole;
+    if(updatableRole.name == Statics.SUPER_ADMIN || updatableRole.name == Statics.ADMIN || updatableRole.name == Statics.BASIC_USER) {
+      this.nameDissabled = true;
+    } else {
+      this.nameDissabled = false;
+    }
     $('#updateModal').modal('show');
   }
 

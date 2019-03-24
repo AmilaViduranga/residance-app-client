@@ -3,11 +3,13 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import { Statics } from '../services/statics';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
+import { BasicAuthService } from '../services/basic-auth.service';
 
 declare const $: any;
 
 //Metadata
 export interface RouteInfo {
+    name:string;
     path: string;
     title: string;
     type: string;
@@ -26,70 +28,76 @@ export interface ChildrenItems {
 }
 
 //Menu Items
-export const ROUTES: RouteInfo[] = [{
+export let ROUTES: RouteInfo[] = [{
+        name: Statics.DASHBOARD,
         path: '/residance/residance-dashboard',
         title: 'Dashboard',
         type: 'link',
         icontype: 'dashboard',
         grants:[
-            'super-admin',
-            'admin',
-            'basic-user'
+            Statics.SUPER_ADMIN,
+            Statics.ADMIN,
+            Statics.BASIC_USER
         ],
-        allow: true
+        allow: false
     }, {
+        name: Statics.GAS_BILL,
         path: '/residance/residance-gassbill',
         title: 'Gas Bill Management',
         type: 'link',
         icontype: 'games',
         grants:[
-            'super-admin',
-            'admin',
-            'basic-user'
+            Statics.SUPER_ADMIN,
+            Statics.ADMIN,
+            Statics.BASIC_USER
         ],
-        allow: true
+        allow: false
     },{
+        name: Statics.ROLE,
         path: '/residance/residance-role',
         title: 'Role Management',
         type: 'link',
         icontype: 'record_voice_over',
         grants:[
-            'super-admin'
+            Statics.SUPER_ADMIN
         ],
-        allow: true
+        allow: false
     }, {
+        name: Statics.TENANT,
         path: '/residance/residance-tenant',
         title: 'Tenant Management',
         type: 'link',
         icontype: 'perm_identity',
         grants:[
-            'super-admin',
-            'admin',
-            'basic-user'
+            Statics.SUPER_ADMIN,
+            Statics.ADMIN,
+            Statics.BASIC_USER
         ],
-        allow: true
+        allow: false
     },{
+        name: Statics.UNIT,
         path: '/residance/residance-unit',
         title: 'unit Management',
         type: 'link',
         icontype: 'assessment',
         grants:[
-            'super-admin',
-            'admin',
-            'basic-user'
+            Statics.SUPER_ADMIN,
+            Statics.ADMIN,
+            Statics.BASIC_USER
         ],
-        allow: true
+        allow: false
     }, {
+        name: Statics.USER,
         path: '/residance/residance-user',
         title: 'User Management',
         type: 'link',
         icontype: 'supervised_user_circle',
         grants:[
-            'super-admin',
-            'admin',
-            'basic-user'
+            Statics.SUPER_ADMIN,
+            Statics.ADMIN,
+            Statics.BASIC_USER
         ],
-        allow: true
+        allow: false
     }
 
 ];
@@ -102,7 +110,7 @@ export class SidebarComponent implements OnInit {
     public menuItems: any[];
     public userName:string;
 
-    constructor(private route: Router) {
+    constructor(private route: Router, private auth: BasicAuthService) {
 
     }
 
@@ -114,9 +122,12 @@ export class SidebarComponent implements OnInit {
     };
 
     ngOnInit() {
+        this.authUserMenus();
+        console.log(ROUTES);
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.userName = Statics.userName || sessionStorage.getItem("userName");
     }
+
     updatePS(): void  {
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
             const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
@@ -132,7 +143,16 @@ export class SidebarComponent implements OnInit {
     }
 
     authUserMenus() {
-        return true;
+        let role = this.auth.getRoleName();
+        ROUTES.forEach(route => {
+            route.allow = false;
+            route.grants.forEach(grantRole => {
+                if(grantRole == role) {
+                    route.allow = true;
+                }
+            })
+        })
+        console.log(this.menuItems);
     }
 
     logout() {

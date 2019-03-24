@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.service.post(environment.BASESERVICE + environment.USER_LOGIN, false, this.authontication).subscribe(data => {
             if(data.status == 200) {
                 Statics.token = "Bearer " + data.data.token;
-                sessionStorage.setItem("token", Statics.token);
+                sessionStorage.setItem("token", "Bearer " + data.data.token);
                 Statics.userName = data.data.user_name;
                 sessionStorage.setItem("userName", Statics.userName);
                 Statics.userId = data.data._id;

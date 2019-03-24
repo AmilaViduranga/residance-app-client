@@ -7,6 +7,7 @@ import { Unit } from '../../residance-models/units.model';
 import swal from 'sweetalert2';
 import { Statics } from 'src/app/services/statics';
 import { BasicAuthService } from '../../services/basic-auth.service';
+import { Menu } from '../../residance-models/role.model';
 declare var $ :any;
 
 @Component({
@@ -22,10 +23,12 @@ export class ResidanceGasbilComponent implements OnInit {
   availableTenants: Array<Tenant> = new Array<Tenant>();
   newInstance:GasBill = new GasBill();
   updateInstance:GasBill = new GasBill();
+  menu:Menu = new Menu();
 
   constructor(private service: BasicRestService, private authService: BasicAuthService) { }
 
   ngOnInit() {
+    this.grantAccess();
     this.getAvailableGasBills();
     this.getAvailableUnits();
     this.getAvailableTenants();
@@ -34,6 +37,17 @@ export class ResidanceGasbilComponent implements OnInit {
 
   getAvailableGasBills() {
     this.availableGasBill = [];
+    if(this.menu.isView && this.menu.canViewOthers) {
+      this.getAllGassBills();
+    } else {
+      let query = {
+        "publishedBy": this.authService.getUserId()
+      }
+      this.getGassBillsUsingQuery(query);
+    }
+  }
+
+  getAllGassBills() {
     this.service.get(environment.BASESERVICE + environment.GAS_BILL_GET_ALL, true).subscribe(response => {
       response.data.forEach(gasbill => {
         let newGasBill = new GasBill();
@@ -61,6 +75,47 @@ export class ResidanceGasbilComponent implements OnInit {
     }, err => {
       console.log(err);
     })
+  }
+
+  getGassBillsUsingQuery(query) {
+    this.service.post(environment.BASESERVICE + environment.GAS_BILL_GET_BY_QUERY, true, query).subscribe(response => {
+      response.data.forEach(gasbill => {
+        let newGasBill = new GasBill();
+        newGasBill._id = gasbill._id;
+        newGasBill.account_id = gasbill.account_id;
+        newGasBill.amount = gasbill.amount;
+        newGasBill.bill_date = this.dateSpliter(gasbill.bill_date);
+        newGasBill.due_date = this.dateSpliter(gasbill.due_date);
+        newGasBill.message = gasbill.message;
+        newGasBill.outstanding = gasbill.outstanding;
+        newGasBill.publishedBy = gasbill.publishedBy;
+        newGasBill.unit = gasbill.unit_id;
+        newGasBill.unit_id = gasbill.unit_id._id;
+        newGasBill.usage = gasbill.usage;
+        newGasBill.tenant_id = gasbill.tenant_id._id;
+        if(gasbill.pay_slip) {
+          this.service.post(environment.BASESERVICE + environment.GAS_BILL_GET_PAY_SLIP, true, {"path": gasbill.pay_slip}).subscribe(file => {
+            newGasBill.pay_slip = "data:image/png;base64," + file.data;
+            this.availableGasBill.push(newGasBill);
+          })
+        } else {
+          this.availableGasBill.push(newGasBill);
+        }
+      })
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  grantAccess() {
+    this.menu.isView = this.authService.isGranted(Statics.GAS_BILL, Statics.VIEW);
+    this.menu.isUpdate = this.authService.isGranted(Statics.GAS_BILL, Statics.UPDATE);
+    this.menu.isInsert = this.authService.isGranted(Statics.GAS_BILL, Statics.INSERT);
+    this.menu.isDelete = this.authService.isGranted(Statics.GAS_BILL, Statics.DELETE);
+    this.menu.canViewOthers = this.authService.isGranted(Statics.GAS_BILL, Statics.VIEW_ELSE);
+    this.menu.canInsertOthers = this.authService.isGranted(Statics.GAS_BILL, Statics.INSERT_ELSE);
+    this.menu.canEditOthers = this.authService.isGranted(Statics.GAS_BILL, Statics.UPDATE_ELSE);
+    this.menu.canDeleteOthers = this.authService.isGranted(Statics.GAS_BILL, Statics.DELETE_ELSE);
   }
 
   getAvailableUnits() {
