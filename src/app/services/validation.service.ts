@@ -15,7 +15,7 @@ returnObj ={
 //main function 
 mainValidate(inputArr:any){
   
-  for(let a=0;a<=inputArr.length();a++){
+  for(let a=0;a<inputArr.length;a++){
  if (this.validate(inputArr[a].name,inputArr[a].value1,inputArr[a].value2)){ 
    continue
 }else{
@@ -30,18 +30,23 @@ mainValidate(inputArr:any){
 validate(name:any,value1:any,value2:any){
 
   if(name=="name"){
-    return (this.validateName(value1))?true:this.returnObj.msg ="Name Field is Not Valid",this.returnObj.status=false;
+    return (this.validateName(value1))?true:this.returnErr("Name Field is Not Valid") 
   }
   if(name=="email"){
-    return (this.emailAddress(value1))?true:this.returnObj.msg ="Email Field is Not Valid",this.returnObj.status=false;
+    return (this.emailAddress(value1))?true:this.returnErr("Email Field is Not Valid") 
   }
   if(name=="dateCompare"){
-    return (this.validateFromToDate(value1,value2))?true:this.returnObj.msg ="Date Format is Not Valid",this.returnObj.status=false;
+    return (this.validateFromToDate(value1,value2))?true:this.returnErr("Date Format is Not Valid") 
   }
   if(name=="phone"){
-    return (this.validatePhoneNumber(value1))?true:this.returnObj.msg ="Number Format is Not Valid",this.returnObj.status=false;
+    return (this.validatePhoneNumber(value1))?true:this.returnErr("Number Format is Not Valid")
   }
 
+}
+
+private returnErr(obj){
+this.returnObj.msg = obj 
+this.returnObj.status = false
 }
  
 private  validateName(value:any) {
@@ -65,9 +70,9 @@ private validateFromToDate(fromdate:any,todate:any){
 }
 private validatePhoneNumber(num:any){
  let numformat= /^[0-9]+$/
-if((num.toString().length !=10) ||(num.match(numformat)==false) ){
-return false;
-}else{ return true}
+var ans = ((num.toString().length ==10) &&(isNaN(num)==false)? true:false )
+return ans
+
 }   
 
 }
