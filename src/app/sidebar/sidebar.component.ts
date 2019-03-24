@@ -122,9 +122,10 @@ export class SidebarComponent implements OnInit {
     };
 
     ngOnInit() {
+        this.authUserMenus();
+        console.log(ROUTES);
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.userName = Statics.userName || sessionStorage.getItem("userName");
-        this.authUserMenus();
     }
 
     updatePS(): void  {
@@ -144,13 +145,14 @@ export class SidebarComponent implements OnInit {
     authUserMenus() {
         let role = this.auth.getRoleName();
         ROUTES.forEach(route => {
+            route.allow = false;
             route.grants.forEach(grantRole => {
                 if(grantRole == role) {
                     route.allow = true;
                 }
             })
         })
-
+        console.log(this.menuItems);
     }
 
     logout() {

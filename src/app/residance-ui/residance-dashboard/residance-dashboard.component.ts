@@ -25,33 +25,34 @@ export class ResidanceDashboardComponent implements OnInit {
   authUserMenus() {
     let role = this.auth.getRoleName();
     ROUTES.forEach(route => {
-        route.grants.forEach(grantRole => {
-            if(grantRole == role) {
-                route.allow = true;
-                switch(route.name) {
-                  case Statics.GAS_BILL: {
-                    this.isGasBillAllow = true;
-                    break;
-                  }
-                  case Statics.TENANT: {
-                    this.isTenantAllow = true;
-                    break;
-                  }
-                  case Statics.ROLE: {
-                    this.isRoleAllow = true;
-                    break;
-                  }
-                  case Statics.UNIT: {
-                    this.isUnitAllow = true;
-                    break;
-                  }
-                  case Statics.USER: {
-                    this.isUserAllow = true;
-                    break;
-                  }
+      route.allow = false;
+      route.grants.forEach(grantRole => {
+          if(grantRole == role) {
+              route.allow = true;
+              switch(route.name) {
+                case Statics.GAS_BILL: {
+                  this.isGasBillAllow = true;
+                  break;
                 }
-            }
-        })
+                case Statics.TENANT: {
+                  this.isTenantAllow = true;
+                  break;
+                }
+                case Statics.ROLE: {
+                  this.isRoleAllow = true;
+                  break;
+                }
+                case Statics.UNIT: {
+                  this.isUnitAllow = true;
+                  break;
+                }
+                case Statics.USER: {
+                  this.isUserAllow = true;
+                  break;
+                }
+              }
+          }
+      })
     })
   }
 

@@ -12,18 +12,17 @@ export class BasicAuthService {
   constructor() { }
 
   getUserId() {
-    let decoder = this.decodeToken();
+    let decoder = jwt_decode(sessionStorage.getItem("token") || Statics.token);
     return decoder._id;
   }
 
   getRoleName() {
-    let decoder = this.decodeToken();
-    console.log(decoder.role.name);
+    let decoder = jwt_decode(sessionStorage.getItem("token") || Statics.token);
     return decoder.role.name;
   }
 
   isGranted(menuName, action) {
-    let decorder = this.decodeToken();
+    let decorder = jwt_decode(sessionStorage.getItem("token") || Statics.token);
     for(let i=0; i<decorder.role.menus.length; i++) {
       if(decorder.role.menus[i].name == menuName) {
         switch(action){
@@ -55,9 +54,4 @@ export class BasicAuthService {
       }
     }
   }
-
-  private decodeToken() {
-    return jwt_decode(sessionStorage.getItem("token") || Statics.token);
-  }
-
 }
