@@ -40,6 +40,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
           roleInstance._id = role._id;
           roleInstance.name = role.name;
           roleInstance.menus = role.menus;
+          if(roleInstance.name == Statics.BASIC_USER) {
+            this.newUser.roleId = role._id;
+          }
           this.roles.push(roleInstance);
         })
       })

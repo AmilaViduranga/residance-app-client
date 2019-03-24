@@ -11,6 +11,30 @@ export class Statics {
         {"key": "user", "value": "user"},
         {"key": "unit", "value": "unit"}
     ];
+
+    //default user roles
+    static SUPER_ADMIN:string = "super-admin";
+    static ADMIN:string = "admin";
+    static BASIC_USER: string = "basic-user"
+    //menu list
+    static DASHBOARD: string = "dashboard";
+    static GAS_BILL:string = "gasbill";
+    static TENANT:string = "tenant";
+    static ROLE:string = "role";
+    static USER: string = "user";
+    static UNIT: string = "unit";
+
+    //actions
+    static INSERT:string = "insert";
+    static UPDATE:string = "update";
+    static DELETE:string = "delete";
+    static VIEW: string = "view";
+    static INSERT_ELSE: string = "insert_else";
+    static UPDATE_ELSE: string = "update_else";
+    static DELETE_ELSE: string = "delete_else";
+    static VIEW_ELSE: string = "view_else";
+    
+    //countries
     static countries: any[] = [
         {"name": "Select Country", "code": "CNS"},
         {"name": "Afghanistan", "code": "AF"},
